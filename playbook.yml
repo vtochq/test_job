@@ -1,0 +1,16 @@
+# playbook.yml
+- name: 'Provision Image'
+  hosts: default
+               
+  tasks:
+    - name: install Nginx
+      apk:               
+        name: nginx
+        state: present
+    - name: create Nginx PID dir
+      shell: mkdir /run/nginx
+    - name: write HTML file
+      shell: echo -e "<html>\n<head>\n<title>Epam test</title>\n</head>\n<body><h2>some <i>tags</i></h2><b>another tag</b>\n</body>\n</html>" > /var/www/localhost/htdocs/index.html     
+    - name: change Nginx config
+      shell: echo -e "server {\n	listen 80 default_server;\n	root /var/www/localhost/htdocs;\n}" > /etc/nginx/http.d/default.conf          
+

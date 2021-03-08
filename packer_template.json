@@ -1,0 +1,22 @@
+{
+  "builders": [
+    {
+      "type": "docker",
+      "image": "alpine:latest",
+      "export_path": "nginx_alpine_image.tar"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apk --update --no-cache add python3",
+        "ln -s /usr/bin/python3 /usr/bin/python"
+      ]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "./playbook.yml"
+    }
+  ]
+}
